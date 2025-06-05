@@ -1,0 +1,82 @@
+<header>
+    <div class="container">
+        <div class="header">
+            <div class="left">
+                <div class="logo_eletrobras">
+                    <img src="{{ url_for('static', path='img/Eletrobras_marca_principal-branca.png') }}" alt="Eletrobras Logo">
+                </div>            
+            </div>
+            <div class="center">
+                <div class="clock-container">
+                    <div class="secondary-clock-title">DF | MA | PA | TO</div>
+                    <div class="main-clock" id="main-clock">00:00:00</div>
+                    <div class="date" id="date">Domingo, 1 de Janeiro de 2023</div>
+                    <div class="secondary-clocks">
+                        <div class="secondary-clock">
+                            <div class="secondary-clock-title">AC</div>
+                            <div class="secondary-clock-time" id="ac-clock">00:00:00</div>
+                        </div>
+                        <div class="secondary-clock">
+                            <div class="secondary-clock-title">AM | MT | RO | RR</div>
+                            <div class="secondary-clock-time" id="am-clock">00:00:00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <div class="logo_cepel">
+                    <img src="{{ url_for('static', path='img/logo_coigt-230.png') }}" alt="COI-GT Logo">
+                </div>
+            </div>  
+        </div>
+    </div>
+
+    <script>
+        function updateClock() {
+            // Pega a data e hora atual
+            const now = new Date();
+            
+            // Aplica o ajuste de -35 segundos
+            now.setSeconds(now.getSeconds() - 13);
+            
+            // Formata a hora principal (Brasília)
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('main-clock').textContent = `${hours}:${minutes}:${seconds}`;
+            
+            // Formata a data
+            const days = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+            const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+            const day = days[now.getDay()];
+            const date = now.getDate();
+            const month = months[now.getMonth()];
+            const year = now.getFullYear();
+            document.getElementById('date').textContent = `${day}, ${date} de ${month} de ${year}.`;
+            
+            // Cria horários para os fusos secundários
+            
+            // AC (menos 2 horas)
+            const acTime = new Date(now.getTime());
+            acTime.setHours(acTime.getHours() - 2);
+            const acHours = String(acTime.getHours()).padStart(2, '0');
+            const acMinutes = String(acTime.getMinutes()).padStart(2, '0');
+            const acSeconds = String(acTime.getSeconds()).padStart(2, '0');
+            document.getElementById('ac-clock').textContent = `${acHours}:${acMinutes}`;
+            
+            // AM/MT/RO/RR (menos 1 hora)
+            const amTime = new Date(now.getTime());
+            amTime.setHours(amTime.getHours() - 1);
+            const amHours = String(amTime.getHours()).padStart(2, '0');
+            const amMinutes = String(amTime.getMinutes()).padStart(2, '0');
+            const amSeconds = String(amTime.getSeconds()).padStart(2, '0');
+            document.getElementById('am-clock').textContent = `${amHours}:${amMinutes}`;
+        }
+        
+        // Atualiza o relógio a cada segundo
+        setInterval(updateClock, 1000);
+        
+        // Carrega o relógio inicialmente
+        updateClock();
+    </script>
+</header>
