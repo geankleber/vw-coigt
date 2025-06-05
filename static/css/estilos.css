@@ -21,6 +21,15 @@ body {
     /*padding: 10px; /* Para garantir que o conteúdo não toque na borda */
 }
 
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #153556;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .header {
     display: flex;
     align-items: center;
@@ -106,4 +115,41 @@ body {
     width: 30%; /* Largura fixa para a div da direita */
     margin: 20px;
     text-align: center;
+}
+
+
+
+h1 {
+    color: #fff;
+    text-align: center;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-weight: bold;
+}
+th, td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+tr:hover {
+    background-color: #f2f2f2;
+}
+.verde {
+    background-color: #62BE5C;
+    color: white;
+}
+.vermelho {
+    background-color: #DA0000;
+    color: white;
+}
+.amarelo {
+    background-color: #FFC107;
+    color: black;
 }

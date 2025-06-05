@@ -1,0 +1,54 @@
+<div class="container">
+    <h1>SINapse Monitor</h1>  
+    <table>
+        <tbody>
+            <tr>
+                <td id="pendentes" class="{{ 'amarelo' if pendentes > 0 else '' }}">Pendentes: {{ pendentes }}</td>
+                <td id="impedidas" class="{{ 'vermelho' if impedidas > 0 else '' }}">Impedidas: {{ impedidas }}</td>
+                <td id="confirmadas" class="{{ 'verde' if confirmadas > 0 else '' }}">Confirmadas: {{ confirmadas }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Conectar ao WebSocket
+        const ws = new WebSocket(`ws://${window.location.host}/ws`);
+        
+        ws.onopen = function(event) {
+            console.log('Conectado: Recebendo atualizações em tempo real');
+        };
+        
+        ws.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            
+            // Atualizar contagens e estilos
+            if (data.pendentes !== undefined) {
+                const tdPendentes = document.getElementById('pendentes');
+                tdPendentes.textContent = 'Pendentes: ' + data.pendentes;
+                tdPendentes.className = data.pendentes > 0 ? 'amarelo' : '';
+            }
+            
+            if (data.impedidas !== undefined) {
+                const tdImpedidas = document.getElementById('impedidas');
+                tdImpedidas.textContent = 'Impedidas: ' + data.impedidas;
+                tdImpedidas.className = data.impedidas > 0 ? 'vermelho' : '';
+            }
+            
+            if (data.confirmadas !== undefined) {
+                const tdConfirmadas = document.getElementById('confirmadas');
+                tdConfirmadas.textContent = 'Confirmadas: ' + data.confirmadas;
+                tdConfirmadas.className = data.confirmadas > 0 ? 'verde' : '';
+            }
+        };
+        
+        ws.onclose = function(event) {
+            console.log('Desconectado: Recarregue a página para reconectar');
+        };
+        
+        ws.onerror = function(error) {
+            console.error('WebSocket Error:', error);
+        };
+    });
+</script>
