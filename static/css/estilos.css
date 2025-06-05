@@ -4,23 +4,26 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 00px;
-    display: flex;
+    display: block;
     justify-content: center;
     align-items: center;
     /* min-height: 100vh; /* centraliza o conteúdo na vertical*/
 }
 
 .container {
-    display: flex;
+    display: block;
     flex-direction: column;
     align-items: center;
     width: 100%;
+    border-bottom: 2px solid transparent; /* Essencial: A borda deve ser transparente */
+    border-image: linear-gradient(to right, #143556, #0077b6, #143556); /* O gradiente */
+    border-image-slice: 1; /* Determina como a imagem da borda é dividida */
+    /*padding: 10px; /* Para garantir que o conteúdo não toque na borda */
 }
 
 .header {
     display: flex;
     align-items: center;
-    margin-bottom: 30px;
     width: 100%;
 }
 
